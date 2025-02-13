@@ -1,0 +1,21 @@
+12.18
+
+195	NR
+236	WLL	long desc and sa
+324	PTEN	long desc
+574	TEN	yh and sa
+660	FLOW	yh_bus_desc
+731	VOLT	"Description Information Not Available"
+1150	CUB	"Description Information Not Available", sa
+1313	UMPQ	with parent desc
+1338	AMRS	"Description Information Not Available"
+1339	CAMP
+1348	NLS
+1360	FUN
+1381	BBBY
+1402	SKY	yh and sa
+1409	COR	yh and sa
+
+
+
+sometimes the sp_business_description and the desc from yh and sa are the same

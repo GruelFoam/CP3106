@@ -1,0 +1,1 @@
+- This folder contains several experiments about the model that fuse the description embeddings from different sources and the evaluation methods.
