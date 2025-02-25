@@ -255,7 +255,9 @@ def evaluate_all_classifications(pairs_df, main_df, classification_columns):
 # For pair evaluation (precision and false positive rate when only considering positive pairs)
 # ============================================================================================
 def convert_to_sorted_tuples(df, col1, col2):
-    # Create a set of sorted tuples from the specified columns
+    '''
+    Convert the dataframe from "pairs_gpt_competitors_2021.csv" to a set of sorted tuple.
+    '''
     result_set = set(tuple(sorted([row[col1], row[col2]])) for _, row in df.iterrows())
     return result_set
 
@@ -313,6 +315,16 @@ def calculate_pair_set(real_pair_set, main_df, column, sample_size=1):
     return precision, false_positive
 
 def precision_and_false_positive(pair_df, main_df, classification_columns, sample_size=1):
+    '''
+    pair_df: DataFrame loaded from "pairs_gpt_competitors_2021.csv".
+
+    main_df: DataFrame containing classification results. It must have a column named "CIK",
+            while the remaining columns represent classification results.
+
+    classification_columns: List of column names in `main_df` that contain classification results.
+
+    sample_size: Integer representing the number of firms sampled from each cluster.  
+    '''
     results = []
     total_valid_pairs = check_missing_ciks(pair_df, main_df)
 
