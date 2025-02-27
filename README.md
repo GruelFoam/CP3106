@@ -3,16 +3,16 @@ Everything about my CP3106. A firm representation learning aims to achieve bette
 
 # File struction introduction
 
-## 1 baseline
+## 1_baseline
 Earliest baseline experiments.
 
-## 2 data processing
+## 2_data_processing
 Check and merge the firm descriptions from different sources to one csv file. Source of main dataset "merged_1197.csv" in "MyData".
 
-## 3 tabular encoder
+## 3_tabular_encoder
 Tried to use CNN and linear model to compress the tabular data.
 
-## 4 text fusion
+## 4_text_fusion
 Some experiments on different fusion and training methods.
 
 - Folder "mid_data" stores the clustering results from different methods.
@@ -31,11 +31,21 @@ Some experiments on different fusion and training methods.
 
 - **tool:** Containing tool functions.
 
-## 5 Synthetic Data Generation
-Some experiments on generating synthetic training data.
 
-- **saved_model:** Saved autoencoder (more complex than the one trained in "text fusion")
+## 5_synthetic_data_generation
+Some experiments on generating synthetic training data.
 
 - **ae:** A more complex autoencoder.
 
 - **cgan:** A conditional GAN trained by the encoded descriptions from "ae". (performance is not ideal)
+
+
+## 6_with_neural_network
+
+
+## model
+- **saved_model:** Folder that stores trained models.
+
+- **obtain_model:** Scripts that facilitate loading trained models or initializing a blank model before training.
+
+- Other .py files are the definition of my models.

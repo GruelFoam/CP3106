@@ -51,12 +51,12 @@ def init_clasf(device, input_dim, hidden_dim, num_classes, drop_rate):
 
 def load_clasf(model_path, device):
     '''
-    Load the trained ae
+    Load the trained clasf
     '''
     # Optimized hyper paramenters
     input_dim = 256
-    hidden_dim = 64
+    hidden_dim = 128
     num_classes = 11
     drop_rate = 0.1
-    return load_model(AE, device, task="load", model_path=model_path, input_dim=input_dim, hidden_dim=hidden_dim,
+    return load_model(ClassificationModel, device, task="load", model_path=model_path, input_dim=input_dim, hidden_dim=hidden_dim,
                       num_classes=num_classes, drop_rate=drop_rate)
