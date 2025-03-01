@@ -17,7 +17,7 @@ class AE(nn.Module):
             nn.Dropout(drop_rate),
             
             nn.Linear(hidden_dim, latent_dim),  # Outputs mean and log-variance
-            # nn.Sigmoid()
+            nn.Tanh()
         )
 
         # Decoder network (with Layer Normalization)

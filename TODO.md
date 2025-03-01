@@ -1,5 +1,15 @@
-## 2025/2/13
-1. Pair evaluation, false positive.
-2. PCA/Autoencoder fine tuning.
-3. LID evaluation for clustering.
-4. Other methods.
+## 2025/3/1
+Try to use contrastive learning to train a network to transform encoded new embeddings to the final representation.
+1. Prepare dataset (**dataloader**)
+    - firm index?
+    - training data? generating?
+2. Loss function
+    - labels?
+
+
+
+
+gics stock correlation test
+load data function in tool
+safely inference in tool
+dataset/dataloader refactoring
