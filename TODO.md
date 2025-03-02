@@ -9,7 +9,6 @@ Try to use contrastive learning to train a network to transform encoded new embe
 
 
 
-gics stock correlation test
 load data function in tool
 safely inference in tool
 dataset/dataloader refactoring
