@@ -6,17 +6,56 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 import random
+import torch
 
 
 # ============================================================================================
+# General data processing steps
+# ============================================================================================
+# Obtain total_embedding (before convert_to_array)
+def obtain_total_embedding(data_root):
+    item1_embedding = pd.read_csv(data_root+'merged_1197.csv')
+    item1_embedding = item1_embedding[['cik', 'tic', 'Year', 'item1_embeddings', 'GICS_Sector']]
+    print(f"Length of item1_embedding: {len(item1_embedding)}")
+
+    other_embedding = pd.read_csv(data_root+'output_embeddings_2.csv')
+    other_embedding = other_embedding[['cik', 'SP_SHORT_DESC_embeddings', 'SP_LONG_DESC_embeddings', 'ORBIS_PROD_SERV_embeddings', 'ORBIS_OVERVIEW_embeddings']]
+    print(f"Length of other_embedding: {len(other_embedding)}")
+
+    total_embedding = pd.merge(item1_embedding, other_embedding, on=['cik'])
+
+    # To reduce mem consumption
+    item1_embedding = ''
+    other_embedding = ''
+
+    return total_embedding
+
+
+# helper function for convert_to_array
+def parse_nan_string(x, feature_num):
+    """
+    Convert a string representation of a list containing 'nan' into a NumPy array.
+    If the input is NaN, return a NumPy array filled with np.nan.
+    """
+    if pd.notna(x):
+        # Replace 'nan' with 'null' to make it valid JSON
+        x_cleaned = x.replace("nan", "null")
+        # Parse the JSON string into a Python list
+        parsed_list = json.loads(x_cleaned)
+        # Convert 'null' (parsed as None) back to np.nan
+        return np.array([np.nan if item is None else item for item in parsed_list])
+    else:
+        # Return an array of np.nan if the input is NaN
+        return np.full(feature_num, np.nan)
+
 # Load the string type list to np.array
-# ============================================================================================
 def convert_to_array(data_df, info_list, target_list, feature_num, ignore_nan):
     '''
     data_df     (dataframe): Entire dataset;
     info_list   (string list): Columns that don't need to be processed like 'cik', 'Year';
     target_list (strign list): The columns that needed to extract;
     feature_num (integer): Length of each datapoint;
+    ignore_nan  (boolean): whether ignoring the rows that have missing embeddings
     '''
     
     data_df = data_df[info_list + target_list]
@@ -24,12 +63,50 @@ def convert_to_array(data_df, info_list, target_list, feature_num, ignore_nan):
         data_df = data_df.dropna(how='any')
 
     for target in target_list:
-        data_df[target] = data_df[target].apply(
-            lambda x: np.array(json.loads(x)) if pd.notna(x) else np.full(feature_num, np.nan)
-            )
+        data_df[target] = data_df[target].apply(lambda x: parse_nan_string(x, feature_num))
     
     return data_df
+
 # ============================================================================================
+
+
+
+
+
+
+
+# ============================================================================================
+# Tools for neural network
+# ============================================================================================
+'''
+convert original embeddings to new latent space with trained_ae and trained_clasf
+'''
+def safe_inference(model, input_tensor):
+    '''
+    Passes the input tensor through the network,
+    skipping rows containing only NaNs while preserving their original positions in the output.
+    '''
+    # Create a mask to identify NaN rows
+    nan_mask = torch.isnan(input_tensor).all(dim=1)  # True for rows that are fully NaN
+    
+    # Extract valid (non-NaN) rows
+    valid_rows = input_tensor[~nan_mask]  # Select rows where nan_mask is False
+    
+    with torch.no_grad():
+        valid_output = model(valid_rows)
+
+    if isinstance(valid_output, tuple):
+        _, valid_output = valid_output
+    
+    # Create an output tensor filled with NaNs
+    output = torch.full((input_tensor.shape[0], valid_output.shape[1]), float('nan'), device=input_tensor.device)
+    
+    # Insert computed values into the non-NaN positions
+    output[~nan_mask] = valid_output
+    
+    return output
+# ============================================================================================
+
 
 
 

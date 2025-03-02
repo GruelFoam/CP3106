@@ -8,7 +8,4 @@ Try to use contrastive learning to train a network to transform encoded new embe
 
 
 
-
-load data function in tool
-safely inference in tool
-dataset/dataloader refactoring
+use new_embedding directly (half way there)
