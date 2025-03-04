@@ -351,9 +351,9 @@ def sample_cluster_pairs(df, cluster_col, index_col, sample_size=1):
         indices = group[index_col].tolist()
         
         # Make sure sample size is smaller than the number of this cluster
-        sample_size = min(sample_size, len(indices))
+        sample_size_for_one_group = min(sample_size, len(indices))
 
-        sampled_indices = random.sample(indices, sample_size)
+        sampled_indices = random.sample(indices, sample_size_for_one_group)
 
         # Create a set of pairs between sampled indices and every other item in the cluster
         for i in range(len(sampled_indices)):

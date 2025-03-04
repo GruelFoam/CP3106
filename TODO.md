@@ -9,3 +9,4 @@ Try to use contrastive learning to train a network to transform encoded new embe
 
 
 use new_embedding directly (half way there)
+boosting, bagging

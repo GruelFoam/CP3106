@@ -41,7 +41,9 @@ Some experiments on generating synthetic training data.
 
 
 ## 6_with_neural_network
+- **2_train_clasf_with_ae:** Origin embedding (1536) -> New embedding (256) -> Encode by clasf (128)
 
+- **4_preparing_pairs:** Origin embedding (1536) -> New embedding (256) -> Transform by a network trained by contrastive loss.
 
 ## model
 - **saved_model:** Folder that stores trained models.
