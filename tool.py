@@ -378,15 +378,22 @@ def calculate_pair_set(real_pair_set, main_df, column, sample_size=1):
     temp = main_df.dropna(subset=[column])
     sampled_pair_set = sample_cluster_pairs(temp, column, "CIK", sample_size)
 
-    common_set = real_pair_set & sampled_pair_set
+    # Remove valid pairs that contains firm don't appear in "temp"
+    # This is because some classification scheme cannot do clustering for every firm.
+    existing_cik_set = temp['CIK'].unique()
+    filtered_real_pair_set = {t for t in real_pair_set if t[0] in existing_cik_set and t[1] in existing_cik_set}
+    print(f"========================================\n{column}")
+    print(f"Original number of positive pairs: {len(real_pair_set)}")
+    print(f"Number of positive pairs after filtering: {len(filtered_real_pair_set)}\n\n")
 
-    len_real_pair_set = len(real_pair_set)
+    # Intersection of the sampled and the total pairs.
+    common_set = filtered_real_pair_set & sampled_pair_set
+
+    # Final calculation
+    len_filtered_real_pair_set = len(filtered_real_pair_set)
     len_sampled_pair_set = len(sampled_pair_set)
     len_common_set = len(common_set)
-
-    print(len_sampled_pair_set)
-    
-    precision = len_common_set / len_real_pair_set
+    precision = len_common_set / len_filtered_real_pair_set
     false_positive = (len_sampled_pair_set-len_common_set) / len_sampled_pair_set
         
     return precision, false_positive
@@ -402,6 +409,8 @@ def precision_and_false_positive(pair_df, main_df, classification_columns, sampl
 
     sample_size: Integer representing the number of firms sampled from each cluster.  
     '''
+    main_df.rename(columns={"cik": "CIK"}, inplace=True)
+
     results = []
     total_valid_pairs = check_missing_ciks(pair_df, main_df)
 
