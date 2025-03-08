@@ -1,0 +1,192 @@
+=============load data=============
+train data shape: torch.Size([34683, 256])
+train label shape: torch.Size([34683])
+test data shape: torch.Size([1197, 256])
+test label shape: torch.Size([1197])
+length of dissimilar_df: 2913
+length of similar_df: 2282
+
+Load data finished
+
+
+
+=============dataset preperation=============
+relation matrix shape: torch.Size([1197, 1197])
+
+Data preperation finished
+
+
+
+=============model training=============
+Epoch [1/50], train_avg_Loss: 17.8778
+Epoch [1/50], test_avg_Loss: 9.8212
+
+Epoch [2/50], train_avg_Loss: 9.5006
+Epoch [2/50], test_avg_Loss: 5.2143
+
+Epoch [3/50], train_avg_Loss: 6.8008
+Epoch [3/50], test_avg_Loss: 4.7483
+
+Epoch [4/50], train_avg_Loss: 6.1330
+Epoch [4/50], test_avg_Loss: 3.3072
+
+Epoch [5/50], train_avg_Loss: 5.1317
+Epoch [5/50], test_avg_Loss: 3.3940
+
+Epoch [6/50], train_avg_Loss: 4.3996
+Epoch [6/50], test_avg_Loss: 2.8226
+
+Epoch [7/50], train_avg_Loss: 3.9186
+Epoch [7/50], test_avg_Loss: 2.6893
+
+Epoch [8/50], train_avg_Loss: 3.7826
+Epoch [8/50], test_avg_Loss: 2.8008
+
+Epoch [9/50], train_avg_Loss: 3.4134
+Epoch [9/50], test_avg_Loss: 2.0329
+
+Epoch [10/50], train_avg_Loss: 3.2320
+Epoch [10/50], test_avg_Loss: 1.9066
+
+Epoch [11/50], train_avg_Loss: 3.2832
+Epoch [11/50], test_avg_Loss: 1.6583
+
+Epoch [12/50], train_avg_Loss: 2.7750
+Epoch [12/50], test_avg_Loss: 1.5142
+
+Epoch [13/50], train_avg_Loss: 2.8991
+Epoch [13/50], test_avg_Loss: 1.2295
+
+Epoch [14/50], train_avg_Loss: 2.7516
+Epoch [14/50], test_avg_Loss: 1.3719
+
+Epoch [15/50], train_avg_Loss: 2.7024
+Epoch [15/50], test_avg_Loss: 1.6506
+
+Epoch [16/50], train_avg_Loss: 2.6525
+Epoch [16/50], test_avg_Loss: 1.2760
+
+Epoch [17/50], train_avg_Loss: 2.4558
+Epoch [17/50], test_avg_Loss: 1.4092
+
+Epoch [18/50], train_avg_Loss: 2.4143
+Epoch [18/50], test_avg_Loss: 2.2197
+
+Epoch [19/50], train_avg_Loss: 2.2498
+Epoch [19/50], test_avg_Loss: 1.2903
+
+Epoch [20/50], train_avg_Loss: 2.3482
+Epoch [20/50], test_avg_Loss: 1.2627
+
+Epoch [21/50], train_avg_Loss: 2.3061
+Epoch [21/50], test_avg_Loss: 0.8953
+
+Epoch [22/50], train_avg_Loss: 2.4731
+Epoch [22/50], test_avg_Loss: 1.1776
+
+Epoch [23/50], train_avg_Loss: 2.2162
+Epoch [23/50], test_avg_Loss: 1.3968
+
+Epoch [24/50], train_avg_Loss: 2.3211
+Epoch [24/50], test_avg_Loss: 1.5668
+
+Epoch [25/50], train_avg_Loss: 2.2854
+Epoch [25/50], test_avg_Loss: 0.7304
+
+Epoch [26/50], train_avg_Loss: 2.2559
+Epoch [26/50], test_avg_Loss: 1.1193
+
+Epoch [27/50], train_avg_Loss: 2.3936
+Epoch [27/50], test_avg_Loss: 1.5536
+
+Epoch [28/50], train_avg_Loss: 2.1453
+Epoch [28/50], test_avg_Loss: 1.2022
+
+Epoch [29/50], train_avg_Loss: 2.2949
+Epoch [29/50], test_avg_Loss: 1.2409
+
+Epoch [30/50], train_avg_Loss: 2.1195
+Epoch [30/50], test_avg_Loss: 1.3809
+
+Epoch [31/50], train_avg_Loss: 2.2968
+Epoch [31/50], test_avg_Loss: 0.7714
+
+Epoch [32/50], train_avg_Loss: 1.9297
+Epoch [32/50], test_avg_Loss: 1.6419
+
+Epoch [33/50], train_avg_Loss: 2.2751
+Epoch [33/50], test_avg_Loss: 0.9337
+
+Epoch [34/50], train_avg_Loss: 1.8936
+Epoch [34/50], test_avg_Loss: 1.4472
+
+Epoch [35/50], train_avg_Loss: 2.0781
+Epoch [35/50], test_avg_Loss: 0.7488
+
+Epoch [36/50], train_avg_Loss: 2.0356
+Epoch [36/50], test_avg_Loss: 1.2794
+
+Epoch [37/50], train_avg_Loss: 1.8774
+Epoch [37/50], test_avg_Loss: 1.3296
+
+Epoch [38/50], train_avg_Loss: 1.9966
+Epoch [38/50], test_avg_Loss: 2.1206
+
+Epoch [39/50], train_avg_Loss: 2.0341
+Epoch [39/50], test_avg_Loss: 0.7428
+
+Epoch [40/50], train_avg_Loss: 2.0787
+Epoch [40/50], test_avg_Loss: 1.3983
+
+Epoch [41/50], train_avg_Loss: 2.0647
+Epoch [41/50], test_avg_Loss: 0.8890
+
+Epoch [42/50], train_avg_Loss: 1.9201
+Epoch [42/50], test_avg_Loss: 0.9050
+
+Epoch [43/50], train_avg_Loss: 1.7820
+Epoch [43/50], test_avg_Loss: 1.0688
+
+Epoch [44/50], train_avg_Loss: 1.8962
+Epoch [44/50], test_avg_Loss: 0.9589
+
+Epoch [45/50], train_avg_Loss: 1.8321
+Epoch [45/50], test_avg_Loss: 0.8970
+
+Epoch [46/50], train_avg_Loss: 1.9169
+Epoch [46/50], test_avg_Loss: 0.9109
+
+Epoch [47/50], train_avg_Loss: 2.0257
+Epoch [47/50], test_avg_Loss: 1.1113
+
+Epoch [48/50], train_avg_Loss: 1.8623
+Epoch [48/50], test_avg_Loss: 1.0710
+
+Epoch [49/50], train_avg_Loss: 1.8486
+Epoch [49/50], test_avg_Loss: 1.0008
+
+Epoch [50/50], train_avg_Loss: 1.8469
+Epoch [50/50], test_avg_Loss: 0.8704
+
+Training finished
+
+
+
+=============model evaluation=============
+Shape of final representation: torch.Size([1197, 128])
+Columns from exp_df: Index(['cik', 'tic', 'Year'], dtype='object')
+Normalized Within-Cluster Sum of Squares (WCSS): 0.0073335148836038665
+Normalized Within-Cluster Sum of Squares (WCSS): 0.0013079184139382371
+
+Stock price correlation for 10 clusters: 0.3563178790636631
+
+Stock price correlation for 100 clusters: 0.4187052430786313
+
+Chart saved to ./charts/chart_20250306_162413_test_one
+  Classification_Scheme  Precision  ...  N_Industries  Avg_Firms_per_Industry
+0            cluster_10   0.855390  ...            10                  119.70
+1           cluster_100   0.605171  ...           100                   11.97
+
+[2 rows x 5 columns]
+
+Script finished
