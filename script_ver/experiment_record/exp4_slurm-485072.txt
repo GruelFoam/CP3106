@@ -1,0 +1,348 @@
+loss function 2
+batch size 128
+epoch 100
+=============load data=============
+train data shape: torch.Size([34683, 256])
+train label shape: torch.Size([34683])
+test data shape: torch.Size([1197, 256])
+test label shape: torch.Size([1197])
+length of similar_df: 2282
+
+Load data finished
+
+
+
+=============dataset preperation=============
+relation matrix shape: torch.Size([1197, 1197])
+
+Data preperation finished
+
+
+
+=============model training=============
+Epoch [1/100], train_avg_Loss: 0.7782
+Epoch [1/100], test_avg_Loss: 0.7549
+
+Epoch [2/100], train_avg_Loss: 0.7501
+Epoch [2/100], test_avg_Loss: 0.7457
+
+Epoch [3/100], train_avg_Loss: 0.7468
+Epoch [3/100], test_avg_Loss: 0.7444
+
+Epoch [4/100], train_avg_Loss: 0.7433
+Epoch [4/100], test_avg_Loss: 0.7471
+
+Epoch [5/100], train_avg_Loss: 0.7412
+Epoch [5/100], test_avg_Loss: 0.7375
+
+Epoch [6/100], train_avg_Loss: 0.7401
+Epoch [6/100], test_avg_Loss: 0.7402
+
+Epoch [7/100], train_avg_Loss: 0.7391
+Epoch [7/100], test_avg_Loss: 0.7416
+
+Epoch [8/100], train_avg_Loss: 0.7365
+Epoch [8/100], test_avg_Loss: 0.7378
+
+Epoch [9/100], train_avg_Loss: 0.7369
+Epoch [9/100], test_avg_Loss: 0.7352
+
+Epoch [10/100], train_avg_Loss: 0.7357
+Epoch [10/100], test_avg_Loss: 0.7339
+
+Epoch [11/100], train_avg_Loss: 0.7351
+Epoch [11/100], test_avg_Loss: 0.7326
+
+Epoch [12/100], train_avg_Loss: 0.7347
+Epoch [12/100], test_avg_Loss: 0.7334
+
+Epoch [13/100], train_avg_Loss: 0.7336
+Epoch [13/100], test_avg_Loss: 0.7307
+
+Epoch [14/100], train_avg_Loss: 0.7333
+Epoch [14/100], test_avg_Loss: 0.7334
+
+Epoch [15/100], train_avg_Loss: 0.7326
+Epoch [15/100], test_avg_Loss: 0.7319
+
+Epoch [16/100], train_avg_Loss: 0.7331
+Epoch [16/100], test_avg_Loss: 0.7332
+
+Epoch [17/100], train_avg_Loss: 0.7321
+Epoch [17/100], test_avg_Loss: 0.7328
+
+Epoch [18/100], train_avg_Loss: 0.7322
+Epoch [18/100], test_avg_Loss: 0.7300
+
+Epoch [19/100], train_avg_Loss: 0.7318
+Epoch [19/100], test_avg_Loss: 0.7339
+
+Epoch [20/100], train_avg_Loss: 0.7314
+Epoch [20/100], test_avg_Loss: 0.7336
+
+Epoch [21/100], train_avg_Loss: 0.7307
+Epoch [21/100], test_avg_Loss: 0.7314
+
+Epoch [22/100], train_avg_Loss: 0.7313
+Epoch [22/100], test_avg_Loss: 0.7306
+
+Epoch [23/100], train_avg_Loss: 0.7306
+Epoch [23/100], test_avg_Loss: 0.7309
+
+Epoch [24/100], train_avg_Loss: 0.7302
+Epoch [24/100], test_avg_Loss: 0.7326
+
+Epoch [25/100], train_avg_Loss: 0.7302
+Epoch [25/100], test_avg_Loss: 0.7320
+
+Epoch [26/100], train_avg_Loss: 0.7294
+Epoch [26/100], test_avg_Loss: 0.7281
+
+Epoch [27/100], train_avg_Loss: 0.7298
+Epoch [27/100], test_avg_Loss: 0.7299
+
+Epoch [28/100], train_avg_Loss: 0.7297
+Epoch [28/100], test_avg_Loss: 0.7332
+
+Epoch [29/100], train_avg_Loss: 0.7299
+Epoch [29/100], test_avg_Loss: 0.7308
+
+Epoch [30/100], train_avg_Loss: 0.7290
+Epoch [30/100], test_avg_Loss: 0.6597
+
+Epoch [31/100], train_avg_Loss: 0.7296
+Epoch [31/100], test_avg_Loss: 0.7312
+
+Epoch [32/100], train_avg_Loss: 0.7288
+Epoch [32/100], test_avg_Loss: 0.7290
+
+Epoch [33/100], train_avg_Loss: 0.7286
+Epoch [33/100], test_avg_Loss: 0.7290
+
+Epoch [34/100], train_avg_Loss: 0.7286
+Epoch [34/100], test_avg_Loss: 0.7281
+
+Epoch [35/100], train_avg_Loss: 0.7281
+Epoch [35/100], test_avg_Loss: 0.7286
+
+Epoch [36/100], train_avg_Loss: 0.7277
+Epoch [36/100], test_avg_Loss: 0.7284
+
+Epoch [37/100], train_avg_Loss: 0.7277
+Epoch [37/100], test_avg_Loss: 0.7312
+
+Epoch [38/100], train_avg_Loss: 0.7282
+Epoch [38/100], test_avg_Loss: 0.7252
+
+Epoch [39/100], train_avg_Loss: 0.7277
+Epoch [39/100], test_avg_Loss: 0.7327
+
+Epoch [40/100], train_avg_Loss: 0.7282
+Epoch [40/100], test_avg_Loss: 0.7291
+
+Epoch [41/100], train_avg_Loss: 0.7284
+Epoch [41/100], test_avg_Loss: 0.7296
+
+Epoch [42/100], train_avg_Loss: 0.7275
+Epoch [42/100], test_avg_Loss: 0.7300
+
+Epoch [43/100], train_avg_Loss: 0.7279
+Epoch [43/100], test_avg_Loss: 0.7262
+
+Epoch [44/100], train_avg_Loss: 0.7282
+Epoch [44/100], test_avg_Loss: 0.7287
+
+Epoch [45/100], train_avg_Loss: 0.7276
+Epoch [45/100], test_avg_Loss: 0.7292
+
+Epoch [46/100], train_avg_Loss: 0.7283
+Epoch [46/100], test_avg_Loss: 0.7264
+
+Epoch [47/100], train_avg_Loss: 0.7273
+Epoch [47/100], test_avg_Loss: 0.7258
+
+Epoch [48/100], train_avg_Loss: 0.7278
+Epoch [48/100], test_avg_Loss: 0.7286
+
+Epoch [49/100], train_avg_Loss: 0.7273
+Epoch [49/100], test_avg_Loss: 0.7294
+
+Epoch [50/100], train_avg_Loss: 0.7269
+Epoch [50/100], test_avg_Loss: 0.7300
+
+Epoch [51/100], train_avg_Loss: 0.7271
+Epoch [51/100], test_avg_Loss: 0.7293
+
+Epoch [52/100], train_avg_Loss: 0.7269
+Epoch [52/100], test_avg_Loss: 0.7286
+
+Epoch [53/100], train_avg_Loss: 0.7272
+Epoch [53/100], test_avg_Loss: 0.7264
+
+Epoch [54/100], train_avg_Loss: 0.7270
+Epoch [54/100], test_avg_Loss: 0.7290
+
+Epoch [55/100], train_avg_Loss: 0.7265
+Epoch [55/100], test_avg_Loss: 0.7279
+
+Epoch [56/100], train_avg_Loss: 0.7271
+Epoch [56/100], test_avg_Loss: 0.7291
+
+Epoch [57/100], train_avg_Loss: 0.7273
+Epoch [57/100], test_avg_Loss: 0.7320
+
+Epoch [58/100], train_avg_Loss: 0.7273
+Epoch [58/100], test_avg_Loss: 0.7245
+
+Epoch [59/100], train_avg_Loss: 0.7268
+Epoch [59/100], test_avg_Loss: 0.7287
+
+Epoch [60/100], train_avg_Loss: 0.7268
+Epoch [60/100], test_avg_Loss: 0.7256
+
+Epoch [61/100], train_avg_Loss: 0.7259
+Epoch [61/100], test_avg_Loss: 0.7273
+
+Epoch [62/100], train_avg_Loss: 0.7264
+Epoch [62/100], test_avg_Loss: 0.7263
+
+Epoch [63/100], train_avg_Loss: 0.7260
+Epoch [63/100], test_avg_Loss: 0.7275
+
+Epoch [64/100], train_avg_Loss: 0.7260
+Epoch [64/100], test_avg_Loss: 0.7258
+
+Epoch [65/100], train_avg_Loss: 0.7266
+Epoch [65/100], test_avg_Loss: 0.7262
+
+Epoch [66/100], train_avg_Loss: 0.7264
+Epoch [66/100], test_avg_Loss: 0.7231
+
+Epoch [67/100], train_avg_Loss: 0.7261
+Epoch [67/100], test_avg_Loss: 0.7245
+
+Epoch [68/100], train_avg_Loss: 0.7264
+Epoch [68/100], test_avg_Loss: 0.7285
+
+Epoch [69/100], train_avg_Loss: 0.7265
+Epoch [69/100], test_avg_Loss: 0.7277
+
+Epoch [70/100], train_avg_Loss: 0.7257
+Epoch [70/100], test_avg_Loss: 0.7267
+
+Epoch [71/100], train_avg_Loss: 0.7267
+Epoch [71/100], test_avg_Loss: 0.7251
+
+Epoch [72/100], train_avg_Loss: 0.7255
+Epoch [72/100], test_avg_Loss: 0.7286
+
+Epoch [73/100], train_avg_Loss: 0.7268
+Epoch [73/100], test_avg_Loss: 0.7279
+
+Epoch [74/100], train_avg_Loss: 0.7256
+Epoch [74/100], test_avg_Loss: 0.7280
+
+Epoch [75/100], train_avg_Loss: 0.7261
+Epoch [75/100], test_avg_Loss: 0.7277
+
+Epoch [76/100], train_avg_Loss: 0.7263
+Epoch [76/100], test_avg_Loss: 0.7242
+
+Epoch [77/100], train_avg_Loss: 0.7265
+Epoch [77/100], test_avg_Loss: 0.7258
+
+Epoch [78/100], train_avg_Loss: 0.7249
+Epoch [78/100], test_avg_Loss: 0.7266
+
+Epoch [79/100], train_avg_Loss: 0.7257
+Epoch [79/100], test_avg_Loss: 0.7253
+
+Epoch [80/100], train_avg_Loss: 0.7263
+Epoch [80/100], test_avg_Loss: 0.7267
+
+Epoch [81/100], train_avg_Loss: 0.7253
+Epoch [81/100], test_avg_Loss: 0.7219
+
+Epoch [82/100], train_avg_Loss: 0.7256
+Epoch [82/100], test_avg_Loss: 0.7262
+
+Epoch [83/100], train_avg_Loss: 0.7260
+Epoch [83/100], test_avg_Loss: 0.6558
+
+Epoch [84/100], train_avg_Loss: 0.7257
+Epoch [84/100], test_avg_Loss: 0.7273
+
+Epoch [85/100], train_avg_Loss: 0.7256
+Epoch [85/100], test_avg_Loss: 0.7268
+
+Epoch [86/100], train_avg_Loss: 0.7255
+Epoch [86/100], test_avg_Loss: 0.7312
+
+Epoch [87/100], train_avg_Loss: 0.7253
+Epoch [87/100], test_avg_Loss: 0.7272
+
+Epoch [88/100], train_avg_Loss: 0.7248
+Epoch [88/100], test_avg_Loss: 0.7299
+
+Epoch [89/100], train_avg_Loss: 0.7251
+Epoch [89/100], test_avg_Loss: 0.7276
+
+Epoch [90/100], train_avg_Loss: 0.7254
+Epoch [90/100], test_avg_Loss: 0.7276
+
+Epoch [91/100], train_avg_Loss: 0.7251
+Epoch [91/100], test_avg_Loss: 0.7257
+
+Epoch [92/100], train_avg_Loss: 0.7256
+Epoch [92/100], test_avg_Loss: 0.7233
+
+Epoch [93/100], train_avg_Loss: 0.7254
+Epoch [93/100], test_avg_Loss: 0.7274
+
+Epoch [94/100], train_avg_Loss: 0.7255
+Epoch [94/100], test_avg_Loss: 0.7252
+
+Epoch [95/100], train_avg_Loss: 0.7249
+Epoch [95/100], test_avg_Loss: 0.7255
+
+Epoch [96/100], train_avg_Loss: 0.7254
+Epoch [96/100], test_avg_Loss: 0.7262
+
+Epoch [97/100], train_avg_Loss: 0.7247
+Epoch [97/100], test_avg_Loss: 0.7250
+
+Epoch [98/100], train_avg_Loss: 0.7247
+Epoch [98/100], test_avg_Loss: 0.7249
+
+Epoch [99/100], train_avg_Loss: 0.7254
+Epoch [99/100], test_avg_Loss: 0.6555
+
+Epoch [100/100], train_avg_Loss: 0.7246
+Epoch [100/100], test_avg_Loss: 0.7262
+
+Training finished
+
+
+
+=============model evaluation=============
+Shape of final representation: torch.Size([1197, 256])
+Columns from exp_df: Index(['cik', 'tic', 'Year'], dtype='object')
+Normalized Within-Cluster Sum of Squares (WCSS): 0.09723396269400715
+Normalized Within-Cluster Sum of Squares (WCSS): 0.02889226213931639
+
+Stock price correlation for 10 clusters: 0.42073438657788653
+
+Stock price correlation for 100 clusters: 0.46060800786722017
+
+Chart saved to ./charts/chart_20250308_174023_test_one
+0     cluster_10
+1    cluster_100
+Name: Classification_Scheme, dtype: object
+0    0.921998
+1    0.818142
+Name: Precision, dtype: float64
+0    0.988262
+1    0.799312
+Name: False_Positive_rate, dtype: float64
+
+Script finished

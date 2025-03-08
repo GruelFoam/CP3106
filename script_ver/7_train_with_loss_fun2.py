@@ -6,6 +6,7 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 import torch.optim as optim
+import torch.nn.functional as F
 
 from tool import *
 import matplotlib.pyplot as plt
@@ -37,8 +38,8 @@ index_to_cik = {idx: cik for idx, cik in enumerate(unique_cik)}
 # print("CIK to Index Mapping:", cik_to_index)
 
 # Similarity info
-dissimilar_df = pd.read_csv("./data/dissimilar_pairs_2021.csv")
-print(f"length of dissimilar_df: {len(dissimilar_df)}")
+# dissimilar_df = pd.read_csv("./data/dissimilar_pairs_2021.csv")
+# print(f"length of dissimilar_df: {len(dissimilar_df)}")
 
 similar_df = pd.read_csv("./data/pairs_gpt_competitors_2021.csv")
 similar_df = similar_df[similar_df['company_a_cik'] != similar_df['company_b_cik']]
@@ -60,10 +61,10 @@ for _, row in similar_df.iterrows():
     i, j = cik_to_index[row['company_a_cik']], cik_to_index[row['company_b_cik']]
     relation_matrix[i, j] = 1
     relation_matrix[j, i] = 1  # Ensure symmetry
-for _, row in dissimilar_df.iterrows():
-    i, j = cik_to_index[row['company_a_cik']], cik_to_index[row['company_b_cik']]
-    relation_matrix[i, j] = 0
-    relation_matrix[j, i] = 0  # Ensure symmetry
+# for _, row in dissimilar_df.iterrows():
+#     i, j = cik_to_index[row['company_a_cik']], cik_to_index[row['company_b_cik']]
+#     relation_matrix[i, j] = 0
+#     relation_matrix[j, i] = 0  # Ensure symmetry
 np.fill_diagonal(relation_matrix, -1)
 
 relation_matrix = torch.tensor(relation_matrix, dtype=torch.float32).to(device)
@@ -82,10 +83,10 @@ class ContrastiveDataset(Dataset):
         return self.data[idx], self.index_list[idx]
 
 train_dataset = ContrastiveDataset(train_data, train_label)
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=128, shuffle=True)
 
 test_dataset = ContrastiveDataset(test_data, torch.arange(1197))
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=128, shuffle=True)
 print("\nData preperation finished\n\n\n")
 
 
@@ -111,48 +112,80 @@ class ProjectionNet(nn.Module):
         # Pass the input through the sequential model
         return self.model(x)
 
-# Loss function
-class ContrastiveLoss1(nn.Module):
-    def __init__(self, margin=1.0):
-        super(ContrastiveLoss1, self).__init__()
-        self.margin = margin
+# Loss function from https://github.com/dhruvbird/ml-notebooks/blob/main/nt-xent-loss/NT-Xent%20Loss.ipynb
+def nt_bxent_loss(x, pos_indices, temperature):
+    assert len(x.size()) == 2
 
-    def forward(self, z1, labels):
-        loss = 0
-        for i, j in z1:
-            distances = torch.norm(i - j, p=2, dim=0)
-            loss += (labels * distances.pow(2)) + ((1 - labels) * torch.relu(self.margin - distances).pow(2))
-        return loss.mean()
+    # Add indexes of the principal diagonal elements to pos_indices
+    pos_indices = torch.cat([
+        pos_indices,
+        torch.arange(x.size(0)).reshape(x.size(0), 1).expand(-1, 2).to(device),
+    ], dim=0)
+    
+    # Ground truth labels
+    target = torch.zeros(x.size(0), x.size(0)).to(device)
+    target[pos_indices[:,0], pos_indices[:,1]] = 1.0
+
+    # Cosine similarity
+    xcs = F.cosine_similarity(x[None,:,:], x[:,None,:], dim=-1)
+    # Set logit of diagonal element to "inf" signifying complete
+    # correlation. sigmoid(inf) = 1.0 so this will work out nicely
+    # when computing the Binary Cross Entropy Loss.
+    xcs[torch.eye(x.size(0)).bool()] = float("inf")
+
+    # Standard binary cross entropy loss. We use binary_cross_entropy() here and not
+    # binary_cross_entropy_with_logits() because of https://github.com/pytorch/pytorch/issues/102894
+    # The method *_with_logits() uses the log-sum-exp-trick, which causes inf and -inf values
+    # to result in a NaN result.
+    loss = F.binary_cross_entropy((xcs / temperature).sigmoid(), target, reduction="none")
+    
+    target_pos = target.bool()
+    target_neg = ~target_pos
+    
+    loss_pos = torch.zeros(x.size(0), x.size(0)).to(device).masked_scatter(target_pos, loss[target_pos])
+    loss_neg = torch.zeros(x.size(0), x.size(0)).to(device).masked_scatter(target_neg, loss[target_neg])
+    loss_pos = loss_pos.sum(dim=1)
+    loss_neg = loss_neg.sum(dim=1)
+    num_pos = target.sum(dim=1)
+    num_neg = x.size(0) - num_pos
+
+    return ((loss_pos / num_pos) + (loss_neg / num_neg)).mean()
     
 # Helper function for finding pairs
-def get_positive_negative_pairs(batch_indices, batch_output):
-    batch_size = len(batch_indices)
+# def get_positive_negative_pairs(batch_indices):
+#     batch_size = len(batch_indices)
     
+#     # Extract the batch submatrix
+#     batch_rel_matrix = relation_matrix[batch_indices][:, batch_indices]  # Shape (B, B)
+
+#     pos_pairs = []
+
+#     for i, j in itertools.combinations(range(batch_size), 2):  
+#         rel_value = batch_rel_matrix[i, j]
+#         if rel_value == 1:
+#             pos_pairs.append((i, j))  # Store indices instead of embeddings
+#             pos_pairs.append((j, i))
+
+#     return torch.tensor(pos_pairs, dtype=torch.long).to(device)
+def get_positive_negative_pairs(batch_indices):
     # Extract the batch submatrix
     batch_rel_matrix = relation_matrix[batch_indices][:, batch_indices]  # Shape (B, B)
 
-    pos_pairs = []
-    neg_pairs = []
+    # Find indices where the relation value is 1
+    pos_pairs = torch.nonzero(batch_rel_matrix == 1, as_tuple=False)  # Shape (N, 2)
 
-    for i, j in itertools.combinations(range(batch_size), 2):  
-        rel_value = batch_rel_matrix[i, j]
-        if rel_value == 1:
-            pos_pairs.append((batch_output[i], batch_output[j]))  # Store actual embeddings
-        elif rel_value == 0:
-            neg_pairs.append((batch_output[i], batch_output[j]))
-
-    return pos_pairs, neg_pairs
+    return pos_pairs.to(device)
 
 # Parameters and model definition
 input_dim = 256
-output_dim = 128
+output_dim = 256
 hidden_dim = 256
-margin = 5.0
+temperature = 0.5
 learning_rate = 0.0001
-num_epochs = 1
+num_epochs = 100
 
 model = ProjectionNet(input_dim, output_dim, hidden_dim).to(device)
-criterion = ContrastiveLoss1(margin=margin)
+criterion = nt_bxent_loss
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # Training loop
@@ -164,13 +197,13 @@ for epoch in range(num_epochs):
         batch_idx = batch_idx.to(device)
 
         z1 = model(batch_data)
-        pos_pairs, neg_pairs = get_positive_negative_pairs(batch_idx, z1)
+        pos_pairs = get_positive_negative_pairs(batch_idx)
 
         loss = torch.tensor(0.0, device=z1.device, requires_grad=True)
         if len(pos_pairs) > 0:
-            loss = loss + criterion(pos_pairs, torch.ones(len(pos_pairs)).to(device))
-        if len(neg_pairs) > 0:
-            loss = loss + criterion(neg_pairs, torch.zeros(len(neg_pairs)).to(device))
+            loss = loss + criterion(z1, pos_pairs, temperature)
+        # if len(neg_pairs) > 0:
+        #     loss = loss + criterion(neg_pairs, torch.zeros(len(neg_pairs)))
 
         total_loss += loss.item()
 
@@ -188,14 +221,14 @@ for epoch in range(num_epochs):
             batch_idx = batch_idx.to(device)
 
             z1 = model(batch_data)
-            pos_pairs, neg_pairs = get_positive_negative_pairs(batch_idx, z1)
+            pos_pairs = get_positive_negative_pairs(batch_idx)
 
             loss = torch.tensor(0.0, device=z1.device, requires_grad=True)
             if len(pos_pairs) > 0:  # Check if there's at least one valid pair
                 # Compute loss
-                loss = loss + criterion(pos_pairs, torch.ones(len(pos_pairs)).to(device))
-            if len(neg_pairs) > 0:
-                loss = loss + criterion(neg_pairs, torch.zeros(len(neg_pairs)).to(device))
+                loss = loss + criterion(z1, pos_pairs, temperature)
+            # if len(neg_pairs) > 0:
+            #     loss = loss + criterion(neg_pairs, torch.zeros(len(neg_pairs)))
             
             total_loss += loss.item()
     print(f"Epoch [{epoch+1}/{num_epochs}], test_avg_Loss: {total_loss/len(test_loader):.4f}\n")
@@ -237,5 +270,7 @@ show_cluster_graph(final_representation, exp_df['cluster_10'], "test_one")
 
 # Pair evaluation
 similar_df_results = precision_and_false_positive(similar_df, exp_df.copy(), ['cluster_10', 'cluster_100'], 10000)
-print(similar_df_results)
+print(similar_df_results['Classification_Scheme'])
+print(similar_df_results['Precision'])
+print(similar_df_results['False_Positive_rate'])
 print("\nScript finished")

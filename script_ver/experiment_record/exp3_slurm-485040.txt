@@ -1,0 +1,138 @@
+Loss function 2
+batch size 32
+
+=============load data=============
+train data shape: torch.Size([34683, 256])
+train label shape: torch.Size([34683])
+test data shape: torch.Size([1197, 256])
+test label shape: torch.Size([1197])
+length of similar_df: 2282
+
+Load data finished
+
+
+
+=============dataset preperation=============
+relation matrix shape: torch.Size([1197, 1197])
+
+Data preperation finished
+
+
+
+=============model training=============
+Epoch [1/30], train_avg_Loss: 0.5555
+Epoch [1/30], test_avg_Loss: 0.5702
+
+Epoch [2/30], train_avg_Loss: 0.5387
+Epoch [2/30], test_avg_Loss: 0.5898
+
+Epoch [3/30], train_avg_Loss: 0.5344
+Epoch [3/30], test_avg_Loss: 0.5514
+
+Epoch [4/30], train_avg_Loss: 0.5331
+Epoch [4/30], test_avg_Loss: 0.5855
+
+Epoch [5/30], train_avg_Loss: 0.5267
+Epoch [5/30], test_avg_Loss: 0.5474
+
+Epoch [6/30], train_avg_Loss: 0.5217
+Epoch [6/30], test_avg_Loss: 0.5491
+
+Epoch [7/30], train_avg_Loss: 0.5412
+Epoch [7/30], test_avg_Loss: 0.5303
+
+Epoch [8/30], train_avg_Loss: 0.5428
+Epoch [8/30], test_avg_Loss: 0.5096
+
+Epoch [9/30], train_avg_Loss: 0.5289
+Epoch [9/30], test_avg_Loss: 0.4710
+
+Epoch [10/30], train_avg_Loss: 0.5378
+Epoch [10/30], test_avg_Loss: 0.5641
+
+Epoch [11/30], train_avg_Loss: 0.5373
+Epoch [11/30], test_avg_Loss: 0.4725
+
+Epoch [12/30], train_avg_Loss: 0.5422
+Epoch [12/30], test_avg_Loss: 0.4897
+
+Epoch [13/30], train_avg_Loss: 0.5348
+Epoch [13/30], test_avg_Loss: 0.5629
+
+Epoch [14/30], train_avg_Loss: 0.5364
+Epoch [14/30], test_avg_Loss: 0.5263
+
+Epoch [15/30], train_avg_Loss: 0.5347
+Epoch [15/30], test_avg_Loss: 0.5482
+
+Epoch [16/30], train_avg_Loss: 0.5574
+Epoch [16/30], test_avg_Loss: 0.5436
+
+Epoch [17/30], train_avg_Loss: 0.5335
+Epoch [17/30], test_avg_Loss: 0.5257
+
+Epoch [18/30], train_avg_Loss: 0.5357
+Epoch [18/30], test_avg_Loss: 0.5997
+
+Epoch [19/30], train_avg_Loss: 0.5361
+Epoch [19/30], test_avg_Loss: 0.6005
+
+Epoch [20/30], train_avg_Loss: 0.5298
+Epoch [20/30], test_avg_Loss: 0.5443
+
+Epoch [21/30], train_avg_Loss: 0.5356
+Epoch [21/30], test_avg_Loss: 0.4486
+
+Epoch [22/30], train_avg_Loss: 0.5331
+Epoch [22/30], test_avg_Loss: 0.5455
+
+Epoch [23/30], train_avg_Loss: 0.5300
+Epoch [23/30], test_avg_Loss: 0.4497
+
+Epoch [24/30], train_avg_Loss: 0.5331
+Epoch [24/30], test_avg_Loss: 0.5444
+
+Epoch [25/30], train_avg_Loss: 0.5338
+Epoch [25/30], test_avg_Loss: 0.6364
+
+Epoch [26/30], train_avg_Loss: 0.5381
+Epoch [26/30], test_avg_Loss: 0.5061
+
+Epoch [27/30], train_avg_Loss: 0.5378
+Epoch [27/30], test_avg_Loss: 0.6185
+
+Epoch [28/30], train_avg_Loss: 0.5467
+Epoch [28/30], test_avg_Loss: 0.5079
+
+Epoch [29/30], train_avg_Loss: 0.5428
+Epoch [29/30], test_avg_Loss: 0.5434
+
+Epoch [30/30], train_avg_Loss: 0.5406
+Epoch [30/30], test_avg_Loss: 0.5043
+
+Training finished
+
+
+
+=============model evaluation=============
+Shape of final representation: torch.Size([1197, 256])
+Columns from exp_df: Index(['cik', 'tic', 'Year'], dtype='object')
+Normalized Within-Cluster Sum of Squares (WCSS): 0.12266652705575788
+Normalized Within-Cluster Sum of Squares (WCSS): 0.04989647287673121
+
+Stock price correlation for 10 clusters: 0.4165066144646268
+
+Stock price correlation for 100 clusters: 0.4606190478479778
+
+Chart saved to ./charts/chart_20250308_165600_test_one
+0     cluster_10
+1    cluster_100
+Name: Classification_Scheme, dtype: object
+0    0.894829
+1    0.765118
+Name: Precision, dtype: float64
+0    0.984010
+1    0.786683
+Name: False_Positive_rate, dtype: float64
+
+Script finished
